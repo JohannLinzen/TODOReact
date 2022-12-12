@@ -23,7 +23,7 @@ body {
 }
 
 .taskNumber {
-  color: #999;
+  color: rgb(225, 225, 225);
   border: 1px solid #999;
   border-radius: 50%;
   width: 26px;

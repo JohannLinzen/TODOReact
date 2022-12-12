@@ -1,23 +1,25 @@
-// import TasksList from './todolist.json'
 import { useState } from "react";
+// import useLocalStorage from './useLocalStorage.js';
+//import three components 
 import AddTaskForm from "./components/AddTaskForm.jsx";
 import UpdateForm from "./components/UpdateForm.jsx";
 import ToDo from "./components/ToDo.jsx";
-
+//bootstrp css
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import "./App.css";
 
 function App() {
-  // Tasks (ToDo List) State
+  // Tasks (ToDo List) State hook 
   const [toDo, setToDo] = useState([]);
 
-  // Temp State
+
+  // Temp State 暫時性資料只為容易檢視
   const [newTask, setNewTask] = useState("");
   const [updateData, setUpdateData] = useState("");
 
   // Add task
-  ///////////////////////////
+  //增加新toDo
   const addTask = () => {
     if (newTask) {
       let num = toDo.length + 1;
@@ -28,14 +30,14 @@ function App() {
   };
 
   // Delete task
-  ///////////////////////////
+  //移除用filter留下id非所選項目
   const deleteTask = (id) => {
     let newTasks = toDo.filter((task) => task.id !== id);
     setToDo(newTasks);
   };
 
   // Mark task as done or completed
-  ///////////////////////////
+  //done如果是所選的id那反轉status
   const markDone = (id) => {
     let newTask = toDo.map((task) => {
       if (task.id === id) {
@@ -47,13 +49,13 @@ function App() {
   };
 
   // Cancel update
-  ///////////////////////////
+  //把set變空
   const cancelUpdate = () => {
     setUpdateData("");
   };
 
   // Change task for update
-  ///////////////////////////
+  //
   const changeTask = (e) => {
     let newEntry = {
       id: updateData.id,
@@ -64,7 +66,7 @@ function App() {
   };
 
   // Update task
-  ///////////////////////////
+  //get the new todo and put it in setToDo
   const updateTask = () => {
     let filterRecords = [...toDo].filter((task) => task.id !== updateData.id);
     let updatedObject = [...filterRecords, updateData];
@@ -79,6 +81,7 @@ function App() {
       <h2>To Do List by React (hooks useState) bootstrap and freeicons</h2>
       <br />
       <br />
+      
 
       {updateData && updateData.title ? (
         <UpdateForm
