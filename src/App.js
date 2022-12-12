@@ -1,18 +1,17 @@
 import { useState } from "react";
-// import useLocalStorage from './useLocalStorage.js';
-//import three components 
-import AddTaskForm from "./components/AddTaskForm.jsx";
-import UpdateForm from "./components/UpdateForm.jsx";
-import ToDo from "./components/ToDo.jsx";
+//import three components
+import AddTaskForm from "./components/AddTaskForm";
+import UpdateForm from "./components/UpdateForm";
+import ToDo from "./components/ToDo";
 //bootstrp css
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import "./App.css";
 
 function App() {
-  // Tasks (ToDo List) State hook 
+  // Tasks (ToDo List) State hook
+  //Hey maybe put it in Localstorage... hmmm wait until my headache is gone
   const [toDo, setToDo] = useState([]);
-
 
   // Temp State 暫時性資料只為容易檢視
   const [newTask, setNewTask] = useState("");
@@ -20,25 +19,25 @@ function App() {
 
   // Add task
   //增加新toDo
-  const addTask = () => {
+  function addTask() {
     if (newTask) {
-      let num = toDo.length + 1;
+      let num = toDo.length + 1; //otherwise it begins from 0
       let newEntry = { id: num, title: newTask, status: false };
       setToDo([...toDo, newEntry]);
       setNewTask("");
     }
-  };
+  }
 
   // Delete task
   //移除用filter留下id非所選項目
-  const deleteTask = (id) => {
+  function deleteTask(id) {
     let newTasks = toDo.filter((task) => task.id !== id);
     setToDo(newTasks);
-  };
+  }
 
   // Mark task as done or completed
   //done如果是所選的id那反轉status
-  const markDone = (id) => {
+  function markDone(id) {
     let newTask = toDo.map((task) => {
       if (task.id === id) {
         return { ...task, status: !task.status };
@@ -46,33 +45,33 @@ function App() {
       return task;
     });
     setToDo(newTask);
-  };
+  }
 
   // Cancel update
   //把set變空
-  const cancelUpdate = () => {
+  function cancelUpdate() {
     setUpdateData("");
-  };
+  }
 
   // Change task for update
-  //
-  const changeTask = (e) => {
+  // Hey try to use Reference hook, damn I am lazy....
+  function changeTask(e) {
     let newEntry = {
       id: updateData.id,
       title: e.target.value,
       status: updateData.status ? true : false,
     };
     setUpdateData(newEntry);
-  };
+  }
 
   // Update task
-  //get the new todo and put it in setToDo
-  const updateTask = () => {
+  //get the new todo and put it in setToDo,why setToDo not just varible todo? because it needs tobe render!!!
+  function updateTask() {
     let filterRecords = [...toDo].filter((task) => task.id !== updateData.id);
-    let updatedObject = [...filterRecords, updateData];
-    setToDo(updatedObject);
-    setUpdateData("");
-  };
+    let updatedObject = [...filterRecords, updateData]; // sprend marke merge the old one and new one
+    setToDo(updatedObject); // there two way to write it inside and this is one of it.
+    setUpdateData(""); // clean it
+  }
 
   return (
     <div className="container App">
@@ -81,8 +80,8 @@ function App() {
       <h2>To Do List by React (hooks useState) bootstrap and freeicons</h2>
       <br />
       <br />
-      
 
+      {/* Ja I love ternary  */}
       {updateData && updateData.title ? (
         <UpdateForm
           updateData={updateData}
@@ -99,8 +98,9 @@ function App() {
       )}
 
       {/* Display ToDos */}
-
-      {toDo && toDo.length ? "" : "No Tasks..."}
+      {/* ternary again */}
+      {/* No! I don't put props. in front, that is ugly! */}
+      {toDo && toDo.length ? "" : "Hey!!! you have nothing to do?..."}
 
       <ToDo
         toDo={toDo}

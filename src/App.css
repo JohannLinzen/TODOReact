@@ -23,12 +23,13 @@ body {
 }
 
 .taskNumber {
+  display: flex;
+
   color: rgb(225, 225, 225);
   border: 1px solid #999;
   border-radius: 50%;
   width: 26px;
   height: 26px;
-  display: flex;
   text-align: center;
   font-size: 14px;
   margin-right: 8px;
@@ -36,22 +37,25 @@ body {
   justify-content: center;
 }
 
+/* className={task.status ? "done" : ""} */
+/* className " " + taskText */
 .taskBg .taskText {
   flex: 1;
 }
-
+/* className done + taskText */
 .taskBg .done .taskText {
   text-decoration: line-through;
   opacity: 0.3;
 }
+/*  */
 
 .taskBg .iconsWrap {
+  display: inline-block;
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-90%);
   right: 15px;
   width: auto;
-  display: inline-block;
 }
 
 .taskBg .iconsWrap span {
